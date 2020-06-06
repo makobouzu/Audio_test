@@ -9,11 +9,14 @@
 import UIKit
 import AudioToolbox
 import AVFoundation
+import SwiftyDropbox
 
 class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var signinButton: UIButton!
+    @IBOutlet weak var uploadButton: UIButton!
     
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
@@ -30,6 +33,19 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         super.didReceiveMemoryWarning()
         
     }
+    
+    @IBAction func signInButton(_ sender: UIButton) {
+        if let _ = DropboxClientsManager.authorizedClient {
+            DropboxClientsManager.unlinkClients()
+        }
+        DropboxClientsManager.authorizeFromController(UIApplication.shared,
+                                                      controller: self,
+                                                      openURL: { (url: URL) -> Void in
+                                                        UIApplication.shared.openURL(url)
+        })
+    }
+    
+    
     @IBAction func record(){
         if !isRecording {
             let session = AVAudioSession.sharedInstance()
@@ -58,7 +74,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             label.text = "録音中"
             recordButton.setTitle("STOP", for: .normal)
             playButton.isEnabled = false
-            
         }else{
             
             audioRecorder.stop()
@@ -83,7 +98,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             label.text = "再生中"
             playButton.setTitle("STOP", for: .normal)
             recordButton.isEnabled = false
-            
         }else{
             
             audioPlayer.stop()
@@ -94,6 +108,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             recordButton.isEnabled = true
             
         }
+    }
+    
+    @IBAction func upload(){
+        guard let fileData:Data = NSData(contentsOf: getURL(recNow)) as Data? else {
+            print("error")
+            return
+        }
+        let file = "/" + recNow + ".m4a"
+        saveFile(filePathName: file, fileData: fileData)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -115,6 +138,20 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         print(docsDirect)
         let url = docsDirect.appendingPathComponent(date + ".m4a")
         return url
+    }
+    
+    func saveFile(filePathName: String, fileData: Data) {
+        guard let client = DropboxClientsManager.authorizedClient else {
+            print("client error")
+            return
+        }
+        let _ = client.files.upload(path: filePathName, mode: .add, autorename: false, clientModified: nil, mute: false, input: fileData).response { response, error in
+            if let metadata = response {
+                print("Uploaded file name: \(metadata.name)")
+            } else {
+                print(error!)
+            }
+        }
     }
 }
 

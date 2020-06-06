@@ -41,6 +41,22 @@
                                     <action selector="play" destination="BYZ-38-t0r" eventType="touchUpInside" id="hcG-RY-Pda"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Twz-SQ-Igk">
+                                <rect key="frame" x="118" y="733" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eg2-DM-b1E"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-LZ-vbw">
+                                <rect key="frame" x="247" y="733" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="upload" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Pl-8k-nVx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -49,6 +65,8 @@
                         <outlet property="label" destination="Ans-V7-Co8" id="q7l-6J-MWr"/>
                         <outlet property="playButton" destination="emG-iq-CT9" id="qYC-r8-QdX"/>
                         <outlet property="recordButton" destination="Rgy-vG-yVC" id="4PQ-vB-Hoe"/>
+                        <outlet property="signinButton" destination="Twz-SQ-Igk" id="B87-mG-4gm"/>
+                        <outlet property="uploadButton" destination="j0L-LZ-vbw" id="imU-pP-b9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

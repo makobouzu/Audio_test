@@ -4,6 +4,24 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>dbapi-8-emm</string>
+		<string>dbapi-2</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string></string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>public.mpeg-4-audio</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-lafprm4oup7dc8v</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>mic use</string>
 	<key>CFBundleExecutable</key>
